@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "User Management",
+};
+
 export default function UserManagementPage() {
     return (
         <div>

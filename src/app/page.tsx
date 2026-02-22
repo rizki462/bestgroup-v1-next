@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Home",
+};
+
 export default function Home() {
   return (
     <div className="bg-muted flex justify-center items-center h-screen flex-col space-y-3">

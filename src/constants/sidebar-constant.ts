@@ -9,22 +9,22 @@ export const SIDEBAR_MENU_LIST = {
         },
         {
             title: "Penjualan",
-            url: '/penjualan',
+            url: '/dashboard/penjualan',
             icon: ShoppingCart
         },
         {
             title: "Servis",
-            url: '/servis',
+            url: '/dashboard/servis',
             icon: Wrench
         },
         {
             title: "Persediaan",
-            url: '/persediaan',
+            url: '/dashboard/persediaan',
             icon: Archive
         },
         {
             title: "Laporan",
-            url: '/laporan',
+            url: '/dashboard/laporan',
             icon: Clipboard
         },
         {
@@ -34,24 +34,24 @@ export const SIDEBAR_MENU_LIST = {
         },
         {
             title: "Pengaturan",
-            url: '/pengaturan',
+            url: '/dashboard/pengaturan',
             icon: Settings
         },
     ],
     teknisi: [
         {
             title: "Dashboard",
-            url: '/teknisi',
+            url: '/dashboard',
             icon: LayoutDashboard
         },
         {
             title: "Servis",
-            url: '/servis',
+            url: '/dashboard/servis',
             icon: Wrench
         },
         {
             title: "Pengaturan",
-            url: '/pengaturan',
+            url: '/dashboard/pengaturan',
             icon: Settings
         },
     ],
