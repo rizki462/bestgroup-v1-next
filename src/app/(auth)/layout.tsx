@@ -1,5 +1,6 @@
 import { DarkModeToggle } from "@/components/common/darkmode-toogle";
 import { Computer } from "lucide-react";
+import Image from "next/image";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -12,10 +13,15 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <DarkModeToggle />
       </div>
 
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <div className="flex items-center gap-2 self-center font-medium">
-          <div className="bg-teal-500 flex p-2 items-center justify-center rounded-full">
-            <Computer className="size-6" />
+      <div className="flex w-full max-w-sm flex-col gap-4">
+        <div className="flex items-center self-center font-medium">
+          <div className="flex items-center justify-center">
+            <Image
+              src="/images/bg.png"
+              alt="logo"
+              width={70}
+              height={70}
+            />
           </div>
           <span className="text-2xl font-semibold">Best Group</span>
         </div>

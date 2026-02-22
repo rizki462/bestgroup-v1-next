@@ -2,7 +2,17 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Home",
+    title: 'Home',
+    viewport: {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+    },
+    icons: {
+        icon: '/images/bg.png',
+    },
+    description: 'Best Group',
+    keywords: 'Best Group',
 };
 
 export default function Home() {

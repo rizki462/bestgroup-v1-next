@@ -30,15 +30,15 @@ import {
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { signOut } from '@/actions/auth-action';
+import Link from 'next/link';
+import { useAuthStore } from '@/stores/auth-store';
+import Image from 'next/image';
 
 export default function AppSidebar() {
   const { isMobile } = useSidebar();
   const pathname = usePathname();
-  const profile = {
-    name: 'Rizki Kurnia',
-    role: 'admin',
-    avatar_url: '',
-  };
+
+  const profile = useAuthStore((state) => state.profile);
 
   return (
     <Sidebar collapsible="icon">
@@ -47,10 +47,13 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <div className="font-semibold">
-                <div className="bg-teal-500 flex p-2 items-center justify-center rounded-md">
-                  <Computer className="size-4" />
-                </div>
-                Best Group
+                <Image
+                  src='/images/bg.png'
+                  alt='logo'
+                  width={50}
+                  height={50}
+                />
+                <span className='text-xl'>Best Group</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -65,7 +68,7 @@ export default function AppSidebar() {
                 (item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild tooltip={item.title}>
-                      <a
+                      <Link
                         href={item.url}
                         className={cn('px-4 py-3 h-auto', {
                           'bg-teal-500 text-white hover:bg-teal-500 hover:text-white':
@@ -74,7 +77,7 @@ export default function AppSidebar() {
                       >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ),
@@ -94,13 +97,15 @@ export default function AppSidebar() {
                   className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src="" alt="" />
-                    <AvatarFallback className="rounded-lg">R</AvatarFallback>
+                    <AvatarImage src={profile.avatar_url} alt={profile.name} />
+                    <AvatarFallback className="rounded-lg">
+                      {profile.name?.charAt(0)}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="leading-tight">
-                    <h4 className="truncate font-medium">Rizki Kurnia</h4>
-                    <p className="text-muted-foreground truncate text-xs">
-                      Teknisi
+                    <h4 className="truncate font-medium">{profile.name}</h4>
+                    <p className="text-muted-foreground truncate text-xs capitalize">
+                      {profile.role}
                     </p>
                   </div>
                   <EllipsisVertical className="ml-auto size-4" />
@@ -115,13 +120,15 @@ export default function AppSidebar() {
                 <DropdownMenuLabel className="p-0 font-normal">
                   <div className="flex items-center gap-2 px-1 py-1.5">
                     <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src="" alt="" />
-                      <AvatarFallback className="rounded-lg">R</AvatarFallback>
+                      <AvatarImage src={profile.avatar_url} alt={profile.name} />
+                      <AvatarFallback className="rounded-lg">
+                        {profile.name?.charAt(0)}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="leading-tight">
-                      <h4 className="truncate font-medium">Rizki Kurnia</h4>
-                      <p className="text-muted-foreground truncate text-xs">
-                        Teknisi
+                      <h4 className="truncate font-medium">{profile.name}</h4>
+                      <p className="text-muted-foreground truncate text-xs capitalize">
+                        {profile.role}
                       </p>
                     </div>
                   </div>
