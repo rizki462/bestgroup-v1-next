@@ -20,21 +20,18 @@ export default function DashboardBreadcrumb() {
       <BreadcrumbList>
         {paths.map((path, index) => (
           <Fragment key={`path-${path}`}>
-            {index < paths.length - 1 ? (
-              <Fragment>
-                <BreadcrumbItem>
-                  <BreadcrumbLink
-                    href={`/${paths.slice(0, index + 1).join("/")}`}
-                    className="capitalize"
-                  >
-                    {path}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-              </Fragment>
-            ) : (
-              <BreadcrumbPage className="capitalize">{path}</BreadcrumbPage>
-            )}
+            <BreadcrumbItem className="capitalize">
+              {index < paths.length - 1 ? (
+                <BreadcrumbLink
+                  href={`/${paths.slice(0, index + 1).join("/")}`}
+                >
+                  {path}
+                </BreadcrumbLink>
+              ) : (
+                <BreadcrumbPage>{path}</BreadcrumbPage>
+              )}
+            </BreadcrumbItem>
+            {index < paths.length - 1 && <BreadcrumbSeparator />}
           </Fragment>
         ))}
       </BreadcrumbList>
