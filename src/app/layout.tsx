@@ -4,6 +4,7 @@ import ThemeProvider from "@/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import AuthStoreProvider from "@/providers/auth-store-provider";
 import { cookies } from "next/headers";
+import ReactQueryProvider from "@/providers/react-query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +21,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const cookiesStore = await cookies();
-  const profile = JSON.parse(cookiesStore.get('user_profile')?.value ?? '{}');
+  const profile = JSON.parse(cookiesStore.get("user_profile")?.value ?? "{}");
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -30,15 +30,17 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthStoreProvider profile={profile}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </ReactQueryProvider>
         </AuthStoreProvider>
       </body>
     </html>

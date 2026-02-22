@@ -1,3 +1,5 @@
+import UserManagement from "./_components/user";
+
 export const metadata = {
     title: 'User Management',
     viewport: {
@@ -14,8 +16,6 @@ export const metadata = {
 
 export default function UserManagementPage() {
     return (
-        <div>
-            <h1>User Management</h1>
-        </div>
+        <UserManagement />
     );
-}
+};
