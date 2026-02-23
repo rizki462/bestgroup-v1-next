@@ -36,6 +36,7 @@ export async function login(prevState: AuthFormState, formData: FormData | null)
     return {
       status: "error",
       errors: {
+        ...prevState.errors,
         _form: [error.message],
       },
     };

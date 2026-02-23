@@ -5,5 +5,16 @@ export const loginSchemaForm = z.object({
     password: z.string().min(1, 'Password is required'),
 });
 
-export type LoginForm = z.infer<typeof loginSchemaForm>;
+export const createUserSchema = z.object({
+    email: z.string().min(1, 'Email is required').email('Plase enter a valid email'),
+    password: z.string().min(1, 'Password is required'),
+    name: z.string().min(1, 'Name is required'),
+    role: z.string().min(1, 'Role is required'),
+    avatar_url: z.union([
+        z.string(),
+        z.instanceof(File)
+    ]).optional(),
+});
 
+export type LoginForm = z.infer<typeof loginSchemaForm>;
+export type CreateUserForm = z.infer<typeof createUserSchema>;
