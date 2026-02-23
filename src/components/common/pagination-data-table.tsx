@@ -22,6 +22,7 @@ export default function PaginationDataTable({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
+            className='cursor-pointer'
             onClick={() => {
               if (currentPage > 1) {
                 onChangePage(currentPage - 1);
@@ -31,6 +32,7 @@ export default function PaginationDataTable({
             }}
           />
         </PaginationItem>
+        
         {Array.from({ length: totalPages }).map((_, i) => {
           const page = i + 1;
           if (
@@ -66,6 +68,7 @@ export default function PaginationDataTable({
 
         <PaginationItem>
           <PaginationNext
+            className='cursor-pointer'
             onClick={() => {
               if (currentPage < totalPages) {
                 onChangePage(currentPage + 1);

@@ -11,9 +11,9 @@ export const createUserSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     role: z.string().min(1, 'Role is required'),
     avatar_url: z.union([
-        z.string(),
+        z.string().min(1, 'Image url is required'),
         z.instanceof(File)
-    ]).optional(),
+    ]),
 });
 
 export type LoginForm = z.infer<typeof loginSchemaForm>;

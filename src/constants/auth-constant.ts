@@ -1,40 +1,67 @@
 export const INITIAL_LOGIN_FORM = {
-    email: '',
-    password: ''
+  email: "",
+  password: "",
 };
 
 export const INITIAL_STATE_LOGIN_FORM = {
-    status: 'idle',
-    errors: {
-        email: [],
-        password:[],
-        _form: []
-    }
+  status: "idle",
+  errors: {
+    email: [],
+    password: [],
+    _form: [],
+  },
 };
 
 export const INITIAL_STATE_PROFILE = {
-    id: '',
-    name: '',
-    role: '',
-    avatar_url: ''
-}
+  id: "",
+  name: "",
+  role: "",
+  avatar_url: "",
+};
 
 export const INITIAL_CREATE_USER_FORM = {
-    email: '',
-    password: '',
-    name: '',
-    role: '',
-    avatar_url: ''
-}
+  email: "",
+  password: "",
+  name: "",
+  role: "",
+  avatar_url: "",
+};
 
 export const INITIAL_STATE_CREATE_USER = {
-    status: 'idle',
-    errors: {
-        email: [],
-        password:[],
-        name: [],
-        role: [],
-        avatar_url: [],
-        _form: []
-    }
+  status: "idle",
+  errors: {
+    email: [],
+    password: [],
+    name: [],
+    role: [],
+    avatar_url: [],
+    _form: [],
+  },
 };
+
+export const ROLE_LIST = [
+  {
+    value: "admin",
+    label: "Admin",
+  },
+  {
+    value: "teknisi",
+    label: "Teknisi",
+  },
+  {
+    value: "sales",
+    label: "Sales",
+  },
+  {
+    value: "warehouse",
+    label: "Warehouse",
+  },
+  {
+    value: "finance",
+    label: "Finance",
+  },
+  {
+    value: "service advisor",
+    label: "Service Advisor",
+  },
+];
