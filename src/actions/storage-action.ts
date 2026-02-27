@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import { environment } from "@/config/environment";
-import { createClient } from "@/lib/supabase/server";
+import { environment } from '@/config/environment';
+import { createClient } from '@/lib/supabase/server';
 
 export async function uploadFile(
   bucket: string,
@@ -17,7 +17,7 @@ export async function uploadFile(
     const { error } = await supabase.storage.from(bucket).remove([prevPath]);
     if (error) {
       return {
-        status: "error",
+        status: 'error',
         errors: {
           _form: [error.message],
         },
@@ -26,10 +26,9 @@ export async function uploadFile(
   }
 
   const { error } = await supabase.storage.from(bucket).upload(newPath, file);
-
   if (error) {
     return {
-      status: "error",
+      status: 'error',
       errors: {
         _form: [error.message],
       },
@@ -37,22 +36,21 @@ export async function uploadFile(
   }
 
   return {
-    status: "success",
+    status: 'success',
     data: {
       url: `${environment.SUPABASE_URL}/storage/v1/object/public/${bucket}/${newPath}`,
       path: newPath,
     },
   };
-};
+}
 
 export async function deleteFile(bucket: string, path: string) {
   const supabase = await createClient();
 
   const { error } = await supabase.storage.from(bucket).remove([path]);
-
   if (error) {
     return {
-      status: "error",
+      status: 'error',
       errors: {
         _form: [error.message],
       },
@@ -60,6 +58,6 @@ export async function deleteFile(bucket: string, path: string) {
   }
 
   return {
-    status: "success",
-  }
-};
+    status: 'success',
+  };
+}

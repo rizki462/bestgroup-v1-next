@@ -1,31 +1,29 @@
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { FileImage } from "lucide-react";
-import { getImageData } from "@/lib/utils";
+} from '../ui/form';
+import { Input } from '../ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { FileImage } from 'lucide-react';
+import { getImageData } from '@/lib/utils';
+import { Preview } from '@/types/general';
 
 export default function FormImage<T extends FieldValues>({
   form,
   name,
   label,
   preview,
-  setPriview,
+  setPreview,
 }: {
   form: UseFormReturn<T>;
   name: Path<T>;
   label: string;
-  preview?: {
-    file: File;
-    displayUrl: string;
-  };
-  setPriview?: (preview: { file: File; displayUrl: string }) => void;
+  preview?: Preview;
+  setPreview?: (preview: Preview) => void;
 }) {
   return (
     <FormField
@@ -37,21 +35,30 @@ export default function FormImage<T extends FieldValues>({
           <FormControl>
             <div className="flex items-center gap-2">
               <Avatar className="h-9 w-9 rounded-lg">
-                <AvatarImage src={preview?.displayUrl} alt="Preview" />
+                <AvatarImage
+                  src={preview?.displayUrl}
+                  alt="preview"
+                  className="object-cover"
+                />
                 <AvatarFallback className="rounded-lg">
                   <FileImage className="w-4 h-4" />
                 </AvatarFallback>
               </Avatar>
               <Input
                 type="file"
-                name={rest.name} ref={rest.ref} onBlur={rest.onBlur} disabled={rest.disabled}
-                onChange={async (e) => {
-                    onChange(e);
-                    const {file, displayUrl} = await getImageData(e);
-
-                    if (file) {
-                        setPriview?.({file, displayUrl});
-                    }
+                name={rest.name}
+                ref={rest.ref}
+                onBlur={rest.onBlur}
+                disabled={rest.disabled}
+                onChange={async (event) => {
+                  onChange(event);
+                  const { file, displayUrl } = getImageData(event);
+                  if (file) {
+                    setPreview?.({
+                      file,
+                      displayUrl,
+                    });
+                  }
                 }}
               />
             </div>

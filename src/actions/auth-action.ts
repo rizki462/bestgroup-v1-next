@@ -12,7 +12,7 @@ export async function signOut() {
     try {
         await supabase.auth.signOut();
         cookiesStore.delete('user_profile');
-        revalidatePath('/', 'layout');
+        revalidatePath('/', 'layout');      
         console.log('Signed out successfully');
     } catch (error) {
         console.error('Error signing out:', error);

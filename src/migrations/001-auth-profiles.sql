@@ -12,11 +12,30 @@ create table public.profiles (
 
 alter table public.profiles enable row level security;
 
--- insert a row into public.profiles when user is created --
+-- RLS Policy untuk allow select
+create policy "Allow user to view their profile"
+  on public.profiles for select
+  to authenticated
+  using (auth.uid() = id);
+
+-- RLS Policy untuk allow update
+create policy "Allow user to update their profile"
+  on public.profiles for update
+  to authenticated
+  using (auth.uid() = id);
+
+-- RLS Policy untuk allow service_role full access (triggers, functions)
+create policy "Service role can manage all profiles"
+  on public.profiles for all
+  to service_role
+  using (true)
+  with check (true);
+
+
 create function public.handle_new_user() 
 returns trigger
 language plpgsql
-security definer set search_path = ''
+security definer set search_path = public
 as $$
 begin
   insert into public.profiles (id, name, role, avatar_url)
@@ -35,7 +54,7 @@ create trigger on_auth_user_created
 create function public.handle_delete_user()
 returns trigger
 language plpgsql
-security definer set search_path = ''
+security definer set search_path = public
 as $$
 begin
   delete from public.profiles where id = old.id;
