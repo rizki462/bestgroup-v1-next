@@ -1,3 +1,5 @@
+import StockManagement from "./_components/stock";
+
 export const metadata = {
     title: 'Stock Management',
     viewport: {
@@ -12,10 +14,8 @@ export const metadata = {
     keywords: 'Best Group',
 };
 
-export default function persediaanPage() {
+export default function StocksManagementPage() {
     return (
-        <div>
-            <h1>Persediaan</h1>
-        </div>
+        <StockManagement />
     );
-}
+};

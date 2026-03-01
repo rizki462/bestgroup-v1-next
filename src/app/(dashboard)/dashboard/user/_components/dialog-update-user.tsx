@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { updateUser } from "../actions";
 import { toast } from "sonner";
 import { Preview } from "@/types/general";
-import FormUser from "@/app/(dashboard)/_components/form-user";
+import FormUser from "@/app/(dashboard)/dashboard/user/form-user";
 import { Profile } from "@/types/auth";
 import { Dialog } from "@/components/ui/dialog";
 

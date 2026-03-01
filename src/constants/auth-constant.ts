@@ -49,6 +49,11 @@ export const INITIAL_STATE_UPDATE_USER = {
   },
 };
 
+export const AVAILABLE_LIST = [
+  { value: 'true', label: 'Ready' },
+  { value: 'false', label: 'Not Ready' },
+]
+
 export const ROLE_LIST = [
   {
     value: 'admin',

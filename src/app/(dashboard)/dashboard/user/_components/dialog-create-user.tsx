@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { createUser } from '../actions';
 import { toast } from 'sonner';
 import { Preview } from '@/types/general';
-import FormUser from '@/app/(dashboard)/_components/form-user';
+import FormUser from '@/app/(dashboard)/dashboard/user/form-user';
 
 export default function DialogCreateUser({ refetch }: { refetch: () => void }) {
   const form = useForm<CreateUserForm>({

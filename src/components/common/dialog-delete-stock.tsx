@@ -10,7 +10,7 @@ import {
 import { Button } from '../ui/button';
 import { Loader2 } from 'lucide-react';
 
-export default function DialogDelete({
+export default function DialogDeleteStock({
   open,
   onOpenChange,
   onSubmit,
