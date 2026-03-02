@@ -1,0 +1,1 @@
+export const HEADER_TABLE_OUTLET = ["No", "Kode Outlet", "Nama Outlet", "Alamat", "Kota", "Telepon", "Status", "Action"]

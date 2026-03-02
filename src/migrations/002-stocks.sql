@@ -11,6 +11,10 @@ create table public.stocks (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
 
+  outlet_id text,
+  CONSTRAINT stocks_pkey PRIMARY KEY (id),
+  CONSTRAINT stocks_outlet_id_fkey FOREIGN KEY (outlet_id) REFERENCES public.outlets(kode_outlet)
+
   primary key (id)
 );
 

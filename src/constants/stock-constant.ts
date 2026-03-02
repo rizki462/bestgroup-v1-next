@@ -5,8 +5,9 @@ export const HEADER_TABLE_STOCK = [
   "Kategori",
   "Harga Beli",
   "Harga Jual",
-  "Jumlah",
-  "Available",
+  "Stok",
+  "Status",
+  "Outlet",
   "Action",
 ];
 
@@ -29,6 +30,7 @@ export const INITIAL_STOCK = {
   jumlah: "",
   kategori: "",
   image_url: "",
+  outlet_id: "",
   is_available: "true",
 };
 
@@ -41,6 +43,9 @@ export const INITIAL_STATE_STOCK = {
     harga_beli: [],
     harga_jual: [],
     jumlah: [],
+    kategori: [],
+    image_url: [],
+    outlet_id: [],
     is_available: [],
     _form: [],
   },

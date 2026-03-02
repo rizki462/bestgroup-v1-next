@@ -14,6 +14,7 @@ export async function createStock(prevState: StockFormState, formData: FormData)
     kategori: formData.get('kategori'),
     jumlah: parseInt(formData.get('jumlah') as string),
     image_url: formData.get('image_url'),
+    outlet_id: formData.get('outlet_id'),
     is_available: formData.get('is_available') === 'true' ? true : false,
   });
 
@@ -62,6 +63,7 @@ export async function createStock(prevState: StockFormState, formData: FormData)
     kategori: validatedFields.data.kategori,
     jumlah: validatedFields.data.jumlah,
     image_url: validatedFields.data.image_url,
+    outlet_id: validatedFields.data.outlet_id,
     is_available: validatedFields.data.is_available,
   });
 
@@ -89,6 +91,7 @@ export async function updateStock(prevState: StockFormState, formData: FormData)
     kategori: formData.get('kategori'),
     jumlah: parseInt(formData.get('jumlah') as string),
     image_url: formData.get('image_url'),
+    outlet_id: formData.get('outlet_id'),
     is_available: formData.get('is_available') === 'true' ? true : false,
   });
 
@@ -140,6 +143,7 @@ export async function updateStock(prevState: StockFormState, formData: FormData)
       harga_jual: validatedFields.data.harga_jual,
       kategori: validatedFields.data.kategori,
       jumlah: validatedFields.data.jumlah,
+      outlet_id: validatedFields.data.outlet_id,
       image_url: validatedFields.data.image_url,
       is_available: validatedFields.data.is_available,
     })

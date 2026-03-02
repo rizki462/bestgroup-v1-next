@@ -44,7 +44,7 @@ export default function StockManagement() {
 
       if (currentSearch) {
         query.or(
-          `nama.ilike.%${currentSearch}%,kategori.ilike.%${currentSearch}%`,
+          `nama.ilike.%${currentSearch}%,kategori.ilike.%${currentSearch}%,outlet_id.ilike.%${currentSearch}%`,
         );
       }
 
@@ -112,6 +112,10 @@ export default function StockManagement() {
       >
         {isActuallyAvailable ? "Available" : "Not Available"}
       </div>,
+      <div key={`outlet-${stock.id}`}>
+        <p>{stock.outlet_id}</p>
+      </div>,
+
       <DropdownAction
         key={`action-${stock.id}`}
         menu={[
@@ -167,7 +171,7 @@ export default function StockManagement() {
           />
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline">Create</Button>
+              <Button variant="outline" className="bg-teal-500 hover:bg-teal-500 text-white">Create</Button>
             </DialogTrigger>
             <DialogCreateStock refetch={refetch} />
           </Dialog>

@@ -10,6 +10,7 @@ export const stockFormSchema = z.object({
   harga_jual: z.string().min(1, 'Harga Jual is required'),
   kategori: z.string().min(1, 'Kategori is required'),
   jumlah: z.string().min(1, 'Jumlah is required'),
+  outlet_id: z.string().min(1, 'Outlet is required'),
   image_url: z
       .union([
         z.string(), // Untuk handling URL yang sudah ada (edit mode)
@@ -33,6 +34,7 @@ export const stockSchema = z.object({
   harga_jual: z.number(),
   kategori: z.string(),
   jumlah: z.number(),
+  outlet_id: z.string(),
   image_url: z
       .union([
         z.string(), // Untuk handling URL yang sudah ada (edit mode)

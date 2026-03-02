@@ -52,7 +52,14 @@ export const INITIAL_STATE_UPDATE_USER = {
 export const AVAILABLE_LIST = [
   { value: 'true', label: 'Ready' },
   { value: 'false', label: 'Not Ready' },
-]
+];
+
+export const OUTLET_LIST = [
+  { value: 'SMI-01', label: 'SMI - Sukabumi Pusat' },
+  { value: 'HO-JKT', label: 'Head Office - Jakarta' },
+  { value: 'BJM-01', label: 'BJM - Banjarmasin' },
+  { value: 'BDG-01', label: 'BDG - Bandung Point' },
+];
 
 export const ROLE_LIST = [
   {
