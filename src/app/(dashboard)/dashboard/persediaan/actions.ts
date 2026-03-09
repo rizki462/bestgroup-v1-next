@@ -161,6 +161,10 @@ export async function updateStock(prevState: StockFormState, formData: FormData)
 
   return {
     status: 'success',
+    errors: {
+      ...prevState.errors,
+      _form: [],
+    },
   };
 }
 
