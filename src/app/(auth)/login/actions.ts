@@ -59,7 +59,7 @@ export async function login(prevState: AuthFormState, formData: FormData | null)
     }
 
     revalidatePath('/', 'layout');
-    redirect('/');
+    redirect('/dashboard');
     
     return {
         status: 'success',

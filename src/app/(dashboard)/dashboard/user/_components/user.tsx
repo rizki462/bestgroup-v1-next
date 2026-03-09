@@ -115,12 +115,12 @@ export default function UserManagement() {
         <h1 className="text-2xl font-bold">User Management</h1>
         <div className="flex gap-2">
           <Input
-            placeholder="Search by name"
+            placeholder="Cari nama pengguna..."
             onChange={(e) => handleChangeSearch(e.target.value)}
           />
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline">Create</Button>
+              <Button variant="outline" className='bg-teal-500 text-white hover:bg-teal-600 hover:text-white'>Create</Button>
             </DialogTrigger>
             <DialogCreateUser refetch={refetch} />
           </Dialog>

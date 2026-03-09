@@ -1,19 +1,11 @@
+import { constructMetadata } from "@/components/common/metadata";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export const metadata = {
-    title: 'Home',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
-    icons: {
-        icon: '/images/bg.png',
-    },
-    description: 'Best Group',
-    keywords: 'Best Group',
-};
+
+export const metadata = constructMetadata({
+    title: "Home",
+});
 
 export default function Home() {
   return (

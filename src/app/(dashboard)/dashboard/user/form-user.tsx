@@ -39,8 +39,8 @@ export default function FormUser<T extends FieldValues>({
           <DialogTitle>{type} User</DialogTitle>
           <DialogDescription>
             {type === "Create"
-              ? "register a new user"
-              : "update an existing user"}
+              ? "Buat pengguna baru"
+              : "Update pengguna yang ada"}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-4">

@@ -13,7 +13,7 @@ import {
 export const SIDEBAR_MENU_LIST = {
   admin: [
     {
-      title: "Dashboard",
+      title: "Main Menu",
       url: "/dashboard",
       icon: LayoutDashboard,
     },
@@ -55,7 +55,7 @@ export const SIDEBAR_MENU_LIST = {
   ],
   teknisi: [
     {
-      title: "Dashboard",
+      title: "Main Menu",
       url: "/dashboard",
       icon: LayoutDashboard,
     },

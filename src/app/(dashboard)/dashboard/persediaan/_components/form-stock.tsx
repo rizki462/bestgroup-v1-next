@@ -37,19 +37,13 @@ export default function FormMenu<T extends FieldValues>({
   setPreview?: (preview: Preview) => void;
 }) {
   
-  // 1. Pantau perubahan jumlah stok
   const jumlahWatch = useWatch({
     control: form.control,
     name: "jumlah" as Path<T>,
   });
 
-  // 2. Efek untuk sinkronisasi otomatis status ketersediaan
   useEffect(() => {
-    // Pastikan nilai jumlah diperlakukan sebagai angka
     const currentJumlah = jumlahWatch !== undefined ? Number(jumlahWatch) : 0;
-    
-    // Logika: Jika jumlah > 0 maka true (Ready), jika <= 0 maka false (Not Ready)
-    // Gunakan nilai string "true"/"false" jika AVAILABLE_LIST menggunakan value string
     if (currentJumlah > 0) {
       form.setValue("is_available" as Path<T>, true as any);
     } else {
@@ -147,7 +141,7 @@ export default function FormMenu<T extends FieldValues>({
             </DialogClose>
             <Button type="submit" disabled={isLoading}>
               {isLoading ? <Loader2 className="animate-spin mr-2" /> : null}
-              {type === "Create" ? "Simpan" : "Perbarui"}
+              {type === "Create" ? "Save" : "Update"}
             </Button>
           </DialogFooter>
         </form>

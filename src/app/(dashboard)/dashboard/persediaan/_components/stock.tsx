@@ -166,12 +166,13 @@ export default function StockManagement() {
         <h1 className="text-2xl font-bold">Stock Management</h1>
         <div className="flex gap-2">
           <Input
-            placeholder="Search by name or category"
+            className="w-full lg:w-[300px]"
+            placeholder="Cari nama, kategori, atau outlet ID"
             onChange={(e) => handleChangeSearch(e.target.value)}
           />
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" className="bg-teal-500 hover:bg-teal-500 text-white">Create</Button>
+              <Button variant="outline" className="bg-teal-500 hover:bg-teal-600 hover:text-white text-white">Create</Button>
             </DialogTrigger>
             <DialogCreateStock refetch={refetch} />
           </Dialog>

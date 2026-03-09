@@ -1,18 +1,9 @@
 import UserManagement from "./_components/user";
+import { constructMetadata } from "@/components/common/metadata";
 
-export const metadata = {
+export const metadata = constructMetadata({
     title: 'User Management',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
-    icons: {
-        icon: '/images/bg.png',
-    },
-    description: 'Best Group',
-    keywords: 'Best Group',
-};
+});
 
 export default function UserManagementPage() {
     return (

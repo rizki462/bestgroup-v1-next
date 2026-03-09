@@ -1,18 +1,9 @@
 import OutletManagement from "./_components/outlet";
+import { constructMetadata } from "@/components/common/metadata";
 
-export const metadata = {
+export const metadata = constructMetadata({
     title: 'Outlet Management',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
-    icons: {
-        icon: '/images/bg.png',
-    },
-    description: 'Best Group',
-    keywords: 'Best Group',
-};
+});
 
 export default function OutletManagementPage() {
     return (
