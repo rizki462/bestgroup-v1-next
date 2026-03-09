@@ -8,9 +8,14 @@ import {
   Store,
   User,
   Wrench,
+  LucideIcon,
 } from "lucide-react";
 
-export const SIDEBAR_MENU_LIST = {
+export type SidebarMenuItemRegular = { title: string; url: string; icon: LucideIcon };
+export type SidebarMenuItemGroup = { title: string; icon: LucideIcon; items: Array<{ title: string; url: string; icon: LucideIcon }> };
+export type SidebarMenuItem = SidebarMenuItemRegular | SidebarMenuItemGroup;
+
+export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
   admin: [
     {
       title: "Main Menu",
@@ -38,14 +43,20 @@ export const SIDEBAR_MENU_LIST = {
       icon: Clipboard,
     },
     {
-      title: "Kelola Pengguna",
-      url: "/dashboard/user",
-      icon: User,
-    },
-    {
-      title: "Kelola Outlet",
-      url: "/dashboard/outlet",
-      icon: Store,
+      title: "Manajemen",
+      icon: ShieldCheck,
+      items: [
+        {
+          title: "Kelola Pengguna",
+          url: "/dashboard/user",
+          icon: User,
+        },
+        {
+          title: "Kelola Outlet",
+          url: "/dashboard/outlet",
+          icon: Store,
+        },
+      ],
     },
     {
       title: "Pengaturan",
@@ -73,3 +84,7 @@ export const SIDEBAR_MENU_LIST = {
 };
 
 export type SidebarMenuKey = keyof typeof SIDEBAR_MENU_LIST;
+
+export function hasItems(item: SidebarMenuItem): item is { title: string; icon: LucideIcon; items: Array<{ title: string; url: string; icon: LucideIcon }> } {
+  return 'items' in item;
+}

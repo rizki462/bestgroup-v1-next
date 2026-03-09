@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  EllipsisVertical,
-  LogOut,
-  User,
-  ChevronRight,
-  ChevronDown,
-} from "lucide-react";
-import { useState } from "react";
+import { EllipsisVertical, LogOut, User, ChevronRight } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -41,6 +34,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   SIDEBAR_MENU_LIST,
   SidebarMenuKey,
+  hasItems,
 } from "@/constants/sidebar-constant";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -55,6 +49,8 @@ export default function AppSidebar() {
   const profile = useAuthStore((state) => state.profile);
 
   const isCollapsed = state === "collapsed";
+  const role = profile?.role as SidebarMenuKey;
+  const menuList = SIDEBAR_MENU_LIST[role] || [];
 
   return (
     <Sidebar collapsible="icon">
@@ -80,26 +76,86 @@ export default function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupContent className="flex flex-col gap-2">
-            <SidebarMenu>
-              {SIDEBAR_MENU_LIST[profile.role as SidebarMenuKey]?.map(
-                (item) => (
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-3 mt-5">
+              {menuList.map((item) => {
+                if (hasItems(item)) {
+                  const isSubActive = item.items.some(
+                    (sub) => sub.url === sub.url,
+                  );
+
+                  return (
+                    <Collapsible
+                      key={item.title}
+                      defaultOpen={isSubActive}
+                      asChild
+                      className="group/collapsible"
+                    >
+                      <SidebarMenuItem>
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton
+                            tooltip={item.title}
+                            className="h-11 px-3"
+                          >
+                            {item.icon && (
+                              <item.icon className="size-5 shrink-0" />
+                            )}
+                            <span className="flex-1 truncate">
+                              {item.title}
+                            </span>
+                            <ChevronRight className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />{" "}
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenuSub
+                            className="ml-5 border-l border-slate-200 py-1"
+                          >
+                            {item.items.map((subItem) => (
+                              <SidebarMenuSubItem key={subItem.title}>
+                                <SidebarMenuSubButton asChild>
+                                  <Link
+                                    href={subItem.url}
+                                    className={cn(
+                                      "flex w-full items-center gap-3 rounded-md px-3 py-2 h-auto transition-all",
+                                      pathname === subItem.url
+                                        ? "bg-teal-500 text-white hover:bg-teal-500 hover:text-white"
+                                        : "hover:bg-sidebar-accent",
+                                    )}
+                                  >
+                                    {subItem.icon && (
+                                      <subItem.icon className="size-4 shrink-0" />
+                                    )}
+                                    <span>{subItem.title}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </SidebarMenuItem>
+                    </Collapsible>
+                  );
+                }
+
+                return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild tooltip={item.title}>
-                      <a
+                      <Link
                         href={item.url}
-                        className={cn('px-4 py-3 h-auto', {
-                          'bg-teal-500 text-white hover:bg-teal-500 hover:text-white':
-                            pathname === item.url,
-                        })}
+                        className={cn(
+                          "flex w-full items-center gap-3 rounded-md px-3 py-2 h-auto transition-all",
+                          pathname === item.url
+                            ? "bg-teal-500 text-white hover:bg-teal-500 hover:text-white"
+                            : "hover:bg-sidebar-accent",
+                        )}
                       >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ),
-              )}
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -130,7 +186,7 @@ export default function AppSidebar() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="min-w-56 rounded-lg shadow-xl border-slate-200" // SHADOW DI SINI
+                className="min-w-56 rounded-lg shadow-xl border-slate-200"
                 side={isMobile ? "bottom" : "right"}
                 align="end"
                 sideOffset={10}
@@ -156,9 +212,11 @@ export default function AppSidebar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem className="cursor-pointer">
-                    <User className="mr-2 size-4" />
-                    Profile
+                  <DropdownMenuItem className="cursor-pointer" asChild>
+                    <Link href="/dashboard/pengaturan">
+                      <User className="mr-2 size-4" />
+                      Profile
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => signOut()}
