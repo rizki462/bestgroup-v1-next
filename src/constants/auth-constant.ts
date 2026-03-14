@@ -17,6 +17,7 @@ export const INITIAL_STATE_PROFILE = {
   name: '',
   role: '',
   avatar_url: '',
+  outlet_id: '',
 };
 
 export const INITIAL_CREATE_USER_FORM = {

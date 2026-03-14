@@ -1,21 +1,12 @@
-export const metadata = {
-    title: 'Service Management',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
-    icons: {
-        icon: '/images/bg.png',
-    },
-    description: 'Best Group',
-    keywords: 'Best Group',
-};
+import ServiceManagement from "./_components/service";
+import { constructMetadata } from "@/components/common/metadata";
 
-export default function servicePage() {
+export const metadata = constructMetadata({
+    title: 'Service Management',
+});
+
+export default function ServiceManagementPage() {
     return (
-        <div>
-            <h1>Servis</h1>
-        </div>
+        <ServiceManagement />
     );
-}
+};

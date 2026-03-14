@@ -118,7 +118,7 @@ export default function AppSidebar() {
                                     className={cn(
                                       "flex w-full items-center gap-3 rounded-md px-3 py-2 h-auto transition-all",
                                       pathname === subItem.url
-                                        ? "bg-teal-500 text-white hover:bg-teal-500 hover:text-white"
+                                        ? "bg-teal-500  hover:bg-teal-500 text-white hover:text-white"
                                         : "hover:bg-sidebar-accent",
                                     )}
                                   >
@@ -149,7 +149,7 @@ export default function AppSidebar() {
                             : "hover:bg-sidebar-accent",
                         )}
                       >
-                        {item.icon && <item.icon />}
+                        {item.icon && <item.icon className="size-4 shrink-0" />}
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>

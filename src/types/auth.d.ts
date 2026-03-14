@@ -15,4 +15,5 @@ export type Profile = {
     name?: string;
     role?: string;
     avatar_url?: string;
+    outlet_id?: string;
 };

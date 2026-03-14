@@ -33,9 +33,15 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
       icon: Wrench,
     },
     {
-      title: "Persediaan",
-      url: "/dashboard/persediaan",
+      title: "Gudang dan Logistik",
       icon: Archive,
+      items: [
+        {
+          title: "Cek Stok",
+          url: "/dashboard/persediaan",
+          icon: Archive,
+        }
+      ]
     },
     {
       title: "Laporan",
