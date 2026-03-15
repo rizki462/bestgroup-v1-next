@@ -9,15 +9,22 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Clock, User, Monitor, AlertCircle } from "lucide-react";
+import { SERVICE_STATUS_COLOR, STATUS_UI_STYLE } from "@/constants/service-constant";
+import { cn } from "@/lib/utils";
 
 export default function DialogDetailService({ data, onClose }: { data: any, onClose: () => void }) {
   if (!data) return null;
 
+  const statusKey = SERVICE_STATUS_COLOR[data.status as keyof typeof SERVICE_STATUS_COLOR];
+  const statusUnit = STATUS_UI_STYLE[statusKey].textStatus;
+
   return (
-    <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
-      <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <DialogContent className="sm:max-w-175 max-h-[90vh] overflow-y-auto">
+      <DialogHeader className="flex flex-row items-center mr-5 justify-between space-y-0 pb-2">
         <DialogTitle className="text-xl font-bold font-mono">{data.id_tiket}</DialogTitle>
-        <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 uppercase text-[10px]">
+        <Badge variant="default" className={cn(
+          "text-[14px] font-bold text-white px-2", statusUnit
+        )}>
           {data.status}
         </Badge>
       </DialogHeader>
@@ -28,17 +35,17 @@ export default function DialogDetailService({ data, onClose }: { data: any, onCl
           <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
             <div className="space-y-1">
               <p className="text-[10px] text-muted-foreground uppercase font-bold">Pelanggan</p>
-              <p className="text-sm font-semibold">{data.nama_pelanggan}</p>
+              <p className="text-sm font-semibold dark:text-slate-800">{data.nama_pelanggan}</p>
             </div>
             <div className="space-y-1">
               <p className="text-[10px] text-muted-foreground uppercase font-bold">No. WA</p>
-              <p className="text-sm text-blue-600 underline">{data.no_wa}</p>
+              <p className="text-sm  dark:text-slate-800">{data.no_wa}</p>
             </div>
             <div className="space-y-1 col-span-2">
               <p className="text-[10px] text-muted-foreground uppercase font-bold">Unit</p>
               <div className="flex items-center gap-2">
                 <Monitor className="size-4 text-slate-400" />
-                <p className="text-sm font-medium">{data.unit_laptop}</p>
+                <p className="text-sm font-medium dark:text-slate-800">{data.unit_laptop}</p>
               </div>
             </div>
           </div>
@@ -54,7 +61,7 @@ export default function DialogDetailService({ data, onClose }: { data: any, onCl
 
           <div className="space-y-2">
             <Label>Catatan Teknisi / Progres</Label>
-            <div className="p-3 bg-teal-50/30 rounded-md border border-teal-100 text-sm text-gray-500 min-h-[80px]">
+            <div className="p-3 bg-teal-50/30 rounded-md border border-teal-100 text-sm text-gray-500 min-h-20">
               {data.catatan_teknisi || "Belum ada catatan pengerjaan..."}
             </div>
           </div>

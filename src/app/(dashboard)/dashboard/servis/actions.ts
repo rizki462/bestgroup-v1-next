@@ -14,7 +14,7 @@ export async function createService(
     no_wa: formData.get("no_wa"),
     unit_laptop: formData.get("unit_laptop"),
     keluhan: formData.get("keluhan"),
-    status: formData.get("status") || "antrian",
+    status: formData.get("status"),
   });
 
   if (!validatedFields.success) {
@@ -33,18 +33,31 @@ export async function createService(
   const date = new Date();
   const dateString = `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, "0")}`;
 
-  // Ambil count untuk penomoran
-  const { count } = await supabase
-    .from("services")
-    .select("*", { count: "exact", head: true });
+  // Ambil data terakhir untuk penomoran
+  const { data: lastTicket } = await supabase
+    .from('services')
+    .select('id_tiket')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
 
-  const ticketId = `SRV-${dateString}-${((count || 0) + 1).toString().padStart(3, "0")}`;
+  let nextNumber = 1;
+  if (lastTicket){
+    const lastTicketNumber = parseInt(lastTicket.id_tiket.split('-')[2]);
+    nextNumber = lastTicketNumber + 1;
+  }
+
+  // Generate ID Tiket
+  const ticketId = `SRV-${dateString}-${nextNumber.toString().padStart(3, "0")}`;
 
   // Insert ke Database
-  const { error } = await supabase.from("services").insert({
-    id_tiket: ticketId,
-    ...validatedFields.data,
-    created_at: new Date().toISOString(),
+  const { error } = await supabase
+    .from("services")
+    .insert({
+      id_tiket: ticketId,
+      ...validatedFields.data,
+      created_at: new Date().toISOString(),
+      status: 'antrian'
   });
 
   if (error) {

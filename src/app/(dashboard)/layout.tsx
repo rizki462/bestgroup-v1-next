@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <SidebarProvider>
       <AppSidebar />
 
-      <SidebarInset className="overflow-x-hidden">
+      <SidebarInset className="overflow-x-hidden bg-slate-100 dark:bg-black">
         <header className="flex justify-between h-16 items-center shrink-0 gap-2 transition-[width, height] ease-linear group-has-data-[collabpsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4 ">
             <SidebarTrigger className="cursor-pointer" />
