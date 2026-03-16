@@ -92,13 +92,23 @@ export default function KanbanCard({
         </div>
 
         <div className="flex items-center justify-between pt-2 border-t">
-          <div className="flex gap-2">
-            <div className="size-5 rounded-full bg-teal-100 flex items-center justify-center text-[8px] font-bold text-teal-700">
-              {data.teknisi?.charAt(0) || <User className="size-3" />}
+          <div className="flex items-center gap-2 mt-2">
+            <div className="size-8 rounded-full bg-teal-500 flex items-center justify-center text-xs font-bold text-white shadow-sm overflow-hidden">
+              {data.teknisi?.avatar_url ? (
+                <img
+                  src={data.teknisi.avatar_url}
+                  alt={data.teknisi.name}
+                  className="size-full object-cover"
+                />
+              ) : (
+                <span>{data.teknisi?.name?.charAt(0) || "?"}</span>
+              )}
             </div>
-            <span className="text-[12px] text-teal-700 font-medium truncate">
-              {data.teknisi || "Belum ada teknisi"}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold text-slate-700 leading-none">
+                {data.teknisi?.name || "Belum Ditugaskan"}
+              </span>
+            </div>
           </div>
 
           <div className="flex">

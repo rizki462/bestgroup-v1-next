@@ -9,7 +9,13 @@ import { useState } from "react";
 import InformationUserTicket from "./information-user-ticket";
 import InspectionUserTicket from "./inspection-user-ticket";
 
-export default function DialogDetailService({ data, onClose }: { data: any; onClose: () => void }) {
+interface DialogDetailProps {
+  data: any;
+  onClose: () => void;
+  onStartInspeksi?: () => void;
+}
+
+export default function DialogDetailService({ data, onClose, onStartInspeksi }: DialogDetailProps) {
   const [isInspeksiMode, setIsInspeksiMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

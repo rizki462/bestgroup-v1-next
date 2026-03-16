@@ -2,7 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { AlertCircle, ClipboardCheck, Clock, Monitor, Receipt } from "lucide-react";
+import {
+  AlertCircle,
+  ClipboardCheck,
+  Clock,
+  Monitor,
+  Receipt,
+} from "lucide-react";
 import { INSPEKSI_LIST } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
 
@@ -76,14 +82,20 @@ export default function InformationUserTicket({
 
             <div className="grid grid-cols-2 gap-4">
               <div className="p-3 bg-slate-50 rounded-lg border">
-                <p className="text-[10px] text-muted-foreground uppercase font-bold">Estimasi Biaya</p>
+                <p className="text-[10px] text-muted-foreground uppercase font-bold">
+                  Estimasi Biaya
+                </p>
                 <p className="text-sm font-bold text-teal-700">
-                  Rp {data.inspection.estimasi_harga?.toLocaleString('id-ID')}
+                  Rp {data.inspection.estimasi_harga?.toLocaleString("id-ID")}
                 </p>
               </div>
               <div className="p-3 bg-slate-50 rounded-lg border">
-                <p className="text-[10px] text-muted-foreground uppercase font-bold">Estimasi Waktu</p>
-                <p className="text-sm font-bold text-teal-700">{data.inspection.estimasi_waktu}</p>
+                <p className="text-[10px] text-muted-foreground uppercase font-bold">
+                  Estimasi Waktu
+                </p>
+                <p className="text-sm font-bold text-teal-700">
+                  {data.inspection.estimasi_waktu}
+                </p>
               </div>
             </div>
           </div>
@@ -136,12 +148,22 @@ export default function InformationUserTicket({
             Teknisi PJ
           </p>
           <div className="flex items-center gap-3 bg-slate-50 p-2 rounded-lg border">
-            <div className="size-8 rounded-full bg-teal-500 flex items-center justify-center text-xs font-bold text-white shadow-sm">
-              {data.teknisi?.charAt(0) || "?"}
+            <div className="size-8 rounded-full bg-teal-500 flex items-center justify-center text-xs font-bold text-white shadow-sm overflow-hidden">
+              {data.teknisi?.avatar_url ? (
+                <img
+                  src={data.teknisi.avatar_url}
+                  alt={data.teknisi.name}
+                  className="size-full object-cover"
+                />
+              ) : (
+                <span>{data.teknisi?.name?.charAt(0) || "?"}</span>
+              )}
             </div>
-            <span className="text-sm font-bold text-slate-700">
-              {data.teknisi || "Belum Ada"}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-slate-700 leading-none">
+                {data.teknisi?.name || "Belum Ditugaskan"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -165,12 +187,12 @@ export default function InformationUserTicket({
           onClick={onStartInspeksi}
           className={cn(
             "w-full text-[11px] font-bold h-10 rounded-xl gap-2",
-            data.inspection 
-              ? "bg-slate-100 text-slate-400 border cursor-not-allowed" 
-              : "bg-slate-900 hover:bg-slate-800 text-white"
+            data.inspection
+              ? "bg-slate-100 text-slate-400 border cursor-not-allowed"
+              : "bg-slate-900 hover:bg-slate-800 text-white",
           )}
         >
-          <ClipboardCheck className="size-4" /> 
+          <ClipboardCheck className="size-4" />
           {data.inspection ? "UNIT SUDAH DIINSPEKSI" : "MULAI INSPEKSI (SA)"}
         </Button>
       </div>

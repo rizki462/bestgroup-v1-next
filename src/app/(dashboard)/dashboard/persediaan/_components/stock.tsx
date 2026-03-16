@@ -176,7 +176,7 @@ export default function StockManagement() {
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
               <Input
-                className="w-full lg:w-[250px] pl-4"
+                className="w-full lg:w-62.5 pl-4"
                 placeholder="Cari nama atau deskripsi..."
                 onChange={(e) => handleChangeSearch(e.target.value)}
               />
@@ -184,7 +184,7 @@ export default function StockManagement() {
 
             {/* Quick Filter Kategori */}
             <Select onValueChange={setFilterKategori} defaultValue="all">
-              <SelectTrigger className="w-[140px] md:w-[180px] bg-white">
+              <SelectTrigger className="w-35 md:w-45 bg-white">
                 <Filter className="size-3 mr-2 text-slate-400" />
                 <SelectValue placeholder="Kategori" />
               </SelectTrigger>
@@ -200,7 +200,7 @@ export default function StockManagement() {
 
             {/* Quick Filter Outlet */}
             <Select onValueChange={setFilterOutlet} defaultValue="all">
-              <SelectTrigger className="w-[140px] md:w-[180px] bg-white">
+              <SelectTrigger className="w-35 md:w-45 bg-white">
                 <SelectValue placeholder="Outlet" />
               </SelectTrigger>
               <SelectContent>

@@ -20,3 +20,6 @@ alter table public.services enable row level security;
 -- Membuat Policy agar semua user yang terotentikasi bisa baca/tulis (sesuaikan kebutuhan)
 create policy "Allow all authenticated users" on public.services
   for all using (auth.role() = 'authenticated');
+
+alter table public.services 
+  add column if not exists teknisi_id uuid references public.profiles(id);

@@ -14,7 +14,7 @@ export const SERVICE_STATUS_COLOR = {
   part: "blue",
   pengerjaan: "blue",
   selesai: "green",
-  diambil: "green",
+  diambil: "black",
   batal: "red",
 } as const;
 
@@ -39,6 +39,11 @@ export const STATUS_UI_STYLE = {
     cardBadge: "bg-red-50 text-red-700 border-l-red-500",
     textStatus: "bg-red-600",
   },
+  black: {
+    header: "bg-gray-600 text-white",
+    cardBadge: "bg-gray-50 text-gray-700 border-l-gray-500",
+    textStatus: "bg-gray-600",
+  }
 } as const;
 
 export const getServiceStyle = (status: string) => {

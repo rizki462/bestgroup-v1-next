@@ -43,8 +43,9 @@ export default function KanbanBoard() {
         .from("services")
         .select(`
           *,
-          inspection:inspection_services (*)
-        `)
+            inspection:inspection_services (*),
+            teknisi:profiles!teknisi_id (name, avatar_url)        
+          `)
         .order("created_at", { ascending: false });
       return data || [];
     },

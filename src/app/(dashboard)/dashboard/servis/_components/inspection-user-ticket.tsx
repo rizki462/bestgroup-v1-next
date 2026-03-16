@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { INSPEKSI_LIST } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Check, X } from "lucide-react";
-import { useState } from "react";
-import { createInspectionService } from "../actions";
+import { ArrowLeft, Check, UserCog, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createInspectionService, getTeknisiList } from "../actions";
 import { toast } from "sonner";
 
 export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadingParent }: any) {
@@ -18,6 +18,17 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
     existingInspeksi?.detail_inspeksi || 
     INSPEKSI_LIST.reduce((acc, item) => ({ ...acc, [item]: "Aman" }), {})
   );
+
+  const [teknisiOptions, setTeknisiOptions] = useState<{label: string, value: string}[]>([]);
+
+  // Ambil daftar teknisi saat form dibuka
+  useEffect(() => {
+    async function fetchTeknisi() {
+      const list = await getTeknisiList();
+      setTeknisiOptions(list);
+    }
+    fetchTeknisi();
+  }, []);
 
   const handleToggleInspeksi = (item: string) => {
     if (isDisabled) return;
@@ -58,6 +69,24 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
         <h3 className="font-bold text-lg tracking-tight">
           {isDisabled ? "Data Inspeksi Unit" : "Form Inspeksi Awal Unit"}
         </h3>
+      </div>
+
+      <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl space-y-3">
+        <Label className="text-xs font-bold uppercase text-amber-700 flex items-center gap-2">
+          <UserCog className="size-4" />Teknisi Penanggung Jawab
+        </Label>
+        <select 
+          name="teknisi_id"
+          disabled={isDisabled}
+          defaultValue={data.teknisi_id || ""}
+          className="w-full p-3 bg-white border rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 disabled:bg-slate-100 transition-all"
+        >
+          <option value="" disabled>Pilih Teknisi yang Mengerjakan</option>
+          {teknisiOptions.map((t) => (
+            <option key={t.value} value={t.value}>{t.label}</option>
+          ))}
+        </select>
+        <p className="text-[10px] text-amber-600 italic">* Pilih teknisi yang akan bertanggung jawab melakukan perbaikan</p>
       </div>
 
       {/* Grid Inspeksi */}

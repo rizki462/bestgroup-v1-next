@@ -126,11 +126,29 @@ export async function createInspectionService(
   // Update Status di tabel utama (services)
   const { error: servError } = await supabase
     .from("services")
-    .update({ status: "antrian" })
+    .update({ 
+      status: "antrian",
+      teknisi_id: formData.get("teknisi_id")
+    })
     .eq("id", serviceId);
 
   if (servError) return { status: "error", message: servError.message };
 
   revalidatePath("/dashboard/service");
   return { status: "success", message: "Inspeksi berhasil disimpan!" };
+}
+
+export async function getTeknisiList() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, name')
+    .eq('role', 'teknisi');
+  
+  if (error) return [];
+
+  return data.map((t) => ({
+    label: t.name,
+    value: t.id,
+  }));
 }

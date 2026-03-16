@@ -52,7 +52,7 @@ export default function FormMenu<T extends FieldValues>({
   }, [jumlahWatch, form]); // Akan jalan setiap jumlah berubah ATAU saat form pertama kali muncul
 
   return (
-    <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
+    <DialogContent className="sm:max-w-137.5 max-h-[90vh] overflow-y-auto">
       <Form {...form}>
         <DialogHeader>
           <DialogTitle>{type} Stock Sparepart</DialogTitle>
