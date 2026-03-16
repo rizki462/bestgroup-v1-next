@@ -7,4 +7,18 @@ export const createTicketServiceSchema = z.object({
   keluhan: z.string().min(5, "Jelaskan keluhan minimal 5 karakter"),
 });
 
+export const INSPEKSI_KEYS = [
+  "ram", "storage", "casing", "engsel", "lcd", "keyboard", 
+  "charger", "port", "baut", "speaker", "wifi", 
+  "kamera", "bluetooth", "microphone"
+] as const;
+
+export const inspeksiServiceSchema = z.object({
+  inspeksi: z.record(z.string(), z.string()), 
+  diagnosa_awal: z.string().min(5, "Diagnosa wajib diisi"),
+  estimasi_harga: z.string().min(1, "Estimasi harga wajib diisi"),
+  estimasi_waktu: z.string().min(1, "Estimasi waktu wajib diisi"),
+});
+
 export type CreateTicketForm = z.infer<typeof createTicketServiceSchema>;
+export type InspeksiForm = z.infer<typeof inspeksiServiceSchema>;

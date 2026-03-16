@@ -9,10 +9,20 @@ import {
   User,
   Wrench,
   LucideIcon,
+  Package,
+  Handbag,
 } from "lucide-react";
 
-export type SidebarMenuItemRegular = { title: string; url: string; icon: LucideIcon };
-export type SidebarMenuItemGroup = { title: string; icon: LucideIcon; items: Array<{ title: string; url: string; icon: LucideIcon }> };
+export type SidebarMenuItemRegular = {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+};
+export type SidebarMenuItemGroup = {
+  title: string;
+  icon: LucideIcon;
+  items: Array<{ title: string; url: string; icon: LucideIcon }>;
+};
 export type SidebarMenuItem = SidebarMenuItemRegular | SidebarMenuItemGroup;
 
 export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
@@ -23,25 +33,31 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
       icon: LayoutDashboard,
     },
     {
-      title: "Penjualan",
-      url: "/dashboard/penjualan",
-      icon: ShoppingCart,
-    },
-    {
-      title: "Servis",
-      url: "/dashboard/servis",
-      icon: Wrench,
-    },
-    {
       title: "Gudang dan Logistik",
-      icon: Archive,
+      icon: Package,
       items: [
         {
           title: "Cek Stok",
           url: "/dashboard/persediaan",
           icon: Archive,
-        }
-      ]
+        },
+      ],
+    },
+    {
+      title: "Layanan dan Penjualan",
+      icon: Handbag,
+      items: [
+        {
+          title: "Servis",
+          url: "/dashboard/servis",
+          icon: Wrench,
+        },
+        {
+          title: "Penjualan",
+          url: "/dashboard/penjualan",
+          icon: ShoppingCart,
+        },
+      ],
     },
     {
       title: "Laporan",
@@ -91,6 +107,10 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
 
 export type SidebarMenuKey = keyof typeof SIDEBAR_MENU_LIST;
 
-export function hasItems(item: SidebarMenuItem): item is { title: string; icon: LucideIcon; items: Array<{ title: string; url: string; icon: LucideIcon }> } {
-  return 'items' in item;
+export function hasItems(item: SidebarMenuItem): item is {
+  title: string;
+  icon: LucideIcon;
+  items: Array<{ title: string; url: string; icon: LucideIcon }>;
+} {
+  return "items" in item;
 }

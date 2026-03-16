@@ -4,14 +4,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import KanbanCard from "./kanban-card";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { SERVICE_STATUS_COLOR, STATUS_UI_STYLE } from "@/constants/service-constant";
+import { getServiceStyle, SERVICE_STATUS_COLOR, STATUS_UI_STYLE } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
 
-export default function KanbanColumn({ id, title, count, items }: any) {
+interface KanbanColumnProps {
+  id: string;
+  title: string;
+  count: number;
+  items: any[];
+}
+
+export default function KanbanColumn({ id, title, count, items }: KanbanColumnProps) {
   const { setNodeRef } = useDroppable({ id });
 
-  const statusKey = SERVICE_STATUS_COLOR[id as keyof typeof SERVICE_STATUS_COLOR];
-  const headerStyle = STATUS_UI_STYLE[statusKey].header;
+  const { uiStyle } = getServiceStyle(id);
+  const headerStyle = uiStyle.header;
 
   return (
     <div ref={setNodeRef} className="flex flex-col w-80 min-w-[320px] bg-slate-50/50 rounded-xl border h-full overflow-hidden">

@@ -8,7 +8,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import DialogDetailService from "./dialog-detail-service";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
-import { SERVICE_STATUS_COLOR, STATUS_UI_STYLE } from "@/constants/service-constant";
+import { getServiceStyle, SERVICE_STATUS_COLOR, STATUS_UI_STYLE } from "@/constants/service-constant";
 
 export default function KanbanCard({ data, isOverlay }: { data: any; isOverlay?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -17,15 +17,15 @@ export default function KanbanCard({ data, isOverlay }: { data: any; isOverlay?:
     disabled: open
   });
 
-  const statusKey = SERVICE_STATUS_COLOR[data.status as keyof typeof SERVICE_STATUS_COLOR];
-  const cardStyle = STATUS_UI_STYLE[statusKey].cardBadge;
+  const { uiStyle } = getServiceStyle(data.status);
+  const cardStyle = uiStyle.cardBadge;
 
   const cardUI = (
     <Card
       {...(!isOverlay ? { ...listeners, ...attributes } : {})}
       className={cn(
-        "transition-all border-l-4 border-l-teal-500 group select-none outline-none",
-        isOverlay ? "shadow-2xl ring-2 ring-teal-500 rotate-2 scale-105 cursor-grabbing" : "cursor-grab hover:shadow-md",
+        "transition-all border-l-4 group select-none outline-none",
+        isOverlay ? "shadow-2xl duration-200 scale-105 cursor-grabbing" : "cursor-grab hover:shadow-md",
         !isOverlay && isDragging ? "opacity-0" : "opacity-100", cardStyle
       )}
     >
@@ -43,13 +43,13 @@ export default function KanbanCard({ data, isOverlay }: { data: any; isOverlay?:
         </div>
 
         <div>
-          <h4 className="font-bold text-sm text-slate-800 tracking-tight dark:text-white">{data.nama_pelanggan}</h4>
-          <p className="text-xs text-muted-foreground truncate italic">{data.unit_laptop}</p>
+          <h4 className="font-bold text-sm text-slate-800 tracking-tight">{data.nama_pelanggan}</h4>
+          <p className="text-[16px] font-medium truncate text-slate-600 italic">{data.unit_laptop}</p>
         </div>
 
         <div className="flex gap-2">
           <Button
-            variant="outline" size="sm" className="h-7 text-[10px] gap-1 px-2 hover:bg-teal-50"
+            size="sm" className="h-7 text-[12px] gap-1 my-2 px-2 bg-teal-500 hover:text-white dark:hover:text-slate-500"
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => {
               e.stopPropagation();
@@ -80,7 +80,7 @@ export default function KanbanCard({ data, isOverlay }: { data: any; isOverlay?:
         <DialogTrigger asChild>
           {cardUI}
         </DialogTrigger>
-        <DialogDetailService data={data} onClose={() => setOpen(false)} />
+        <DialogDetailService data={data} onStartInspeksi={() => setOpen(false)} onClose={() => setOpen(false)} />
       </Dialog>
     </div>
   );

@@ -123,7 +123,7 @@ export default function AppSidebar() {
                                     )}
                                   >
                                     {subItem.icon && (
-                                      <subItem.icon className="size-4 shrink-0" />
+                                      <subItem.icon className="size-4 shrink-0 text-white" />
                                     )}
                                     <span>{subItem.title}</span>
                                   </Link>

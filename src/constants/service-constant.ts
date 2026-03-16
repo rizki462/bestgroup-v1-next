@@ -41,6 +41,16 @@ export const STATUS_UI_STYLE = {
   },
 } as const;
 
+export const getServiceStyle = (status: string) => {
+  const colorKey = SERVICE_STATUS_COLOR[status as keyof typeof SERVICE_STATUS_COLOR] || "gray";
+  const uiStyle = STATUS_UI_STYLE[colorKey as ServiceStatusColor];
+
+  return {
+    colorKey,
+    uiStyle,
+  };
+};
+
 export const INITIAL_STATE_CREATE_TICKET = {
   status: "idle",
   errors: {
@@ -66,6 +76,23 @@ export const INITIAL_STATE_SERVICE = {
   message: "",
   errors: {},
 };
+
+export const INSPEKSI_LIST = [
+  "RAM",
+  "Storage",
+  "Casing",
+  "Engsel",
+  "LCD",
+  "Keyboard",
+  "Charger",
+  "Port",
+  "Baut",
+  "Speaker",
+  "Wifi",
+  "Kamera",
+  "Bluetooth",
+  "Microphone",
+];
 
 export type ServiceStatus = keyof typeof SERVICE_STATUS;
 export type ServiceStatusColor = keyof typeof STATUS_UI_STYLE;

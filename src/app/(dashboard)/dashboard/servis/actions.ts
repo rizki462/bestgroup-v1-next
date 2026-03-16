@@ -87,3 +87,23 @@ export async function updateServiceStatus(
   revalidatePath("/dashboard/service");
   return { status: "success", message: "Status berhasil diubah!" };
 }
+
+export async function updateInspeksiService(id: string, data: any) {
+  const supabase = await createClient();
+  
+  const { error } = await supabase
+    .from('services')
+    .update({
+      inspeksi_unit: data.inspeksi,
+      diagnosa_awal: data.diagnosa_awal,
+      estimasi_harga: data.estimasi_harga,
+      estimasi_waktu: data.estimasi_waktu,
+      status: 'Nunggu Konfirmasi'
+    })
+    .eq('id', id);
+
+  if (error) return { status: 'error', message: error.message };
+  
+  revalidatePath('/dashboard/service');
+  return { status: 'success', message: 'Inspeksi berhasil disimpan & Nota siap cetak!' };
+}
