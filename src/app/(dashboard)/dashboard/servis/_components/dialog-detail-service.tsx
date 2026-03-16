@@ -48,7 +48,7 @@ export default function DialogDetailService({
         <div className="flex justify-between items-center">
           <div>
             <p className="text-[10px] uppercase tracking-widest opacity-80 font-bold">
-              Detail Layanan
+              Detail Tiket
             </p>
             <DialogTitle className="text-2xl font-bold font-mono tracking-tighter">
               {data.id_tiket}
@@ -66,7 +66,7 @@ export default function DialogDetailService({
             data={data}
             onStartInspeksi={() => setIsInspeksiMode(true)}
             onClose={onClose}
-            />
+          />
         ) : (
           <InspectionUserTicket
             data={data}
@@ -81,16 +81,16 @@ export default function DialogDetailService({
         <div className="flex gap-2">
           <Button
             variant="outline"
-            className="text-[11px] font-bold h-9 px-4 rounded-lg bg-white"
+            className="text-[11px] bg-blue-500 font-bold h-9 px-4 rounded-lg text-white hover:bg-blue-600 hover:text-white"
           >
             CETAK NOTA TANDA TERIMA
           </Button>
         </div>
         <div className="flex gap-2">
           <Button
-            variant="ghost"
+            variant="destructive"
             onClick={onClose}
-            className="text-[11px] font-bold"
+            className="text-[11px] font-bold hover:text-white hover:bg-red-700"
           >
             BATAL
           </Button>
@@ -98,19 +98,13 @@ export default function DialogDetailService({
           <Button
             form="form-inspeksi"
             type="submit"
-            disabled={isLoading || !isInspeksiMode}
             className={cn(
               "bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold h-9 px-6 rounded-lg",
-              !isInspeksiMode && "hidden",
+              !isInspeksiMode,
             )}
           >
-            {isLoading ? (
-              <Loader2 className="animate-spin size-4 mr-2" />
-            ) : (
-              "SIMPAN HASIL DIAGNOSA"
-            )}
+            {isInspeksiMode ? "SIMPAN HASIL DIAGNOSA" : "SIMPAN PERUBAHAN"}
           </Button>
-
         </div>
       </DialogFooter>
     </DialogContent>

@@ -26,7 +26,7 @@ export default function InformationUserTicket({
             <p className="text-sm font-bold text-slate-800">
               {data.nama_pelanggan}
             </p>
-            <p className="text-[12px] text-slate-500">{data.no_wa}</p>
+            <p className="text-[14px] text-slate-700">{data.no_wa}</p>
           </div>
           <div className="space-y-1">
             <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight">
