@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { createTicketServiceSchema } from "@/validations/service-validation";
+import { createTicketServiceSchema, inspeksiServiceSchema } from "@/validations/service-validation";
 import { TicketFormState } from "@/types/service";
 
 export async function createService(
@@ -88,22 +88,49 @@ export async function updateServiceStatus(
   return { status: "success", message: "Status berhasil diubah!" };
 }
 
-export async function updateInspeksiService(id: string, data: any) {
+export async function createInspectionService(
+  serviceId: string,
+  inspeksiData: any,
+  formData: FormData
+) {
   const supabase = await createClient();
-  
-  const { error } = await supabase
-    .from('services')
-    .update({
-      inspeksi_unit: data.inspeksi,
-      diagnosa_awal: data.diagnosa_awal,
-      estimasi_harga: data.estimasi_harga,
-      estimasi_waktu: data.estimasi_waktu,
-      status: 'Nunggu Konfirmasi'
-    })
-    .eq('id', id);
 
-  if (error) return { status: 'error', message: error.message };
-  
-  revalidatePath('/dashboard/service');
-  return { status: 'success', message: 'Inspeksi berhasil disimpan & Nota siap cetak!' };
+  const validatedFields = inspeksiServiceSchema.safeParse({
+    inspeksi: inspeksiData,
+    diagnosa_awal: formData.get("diagnosa_awal"),
+    estimasi_harga: formData.get("estimasi_harga"),
+    estimasi_waktu: formData.get("estimasi_waktu"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      status: "error",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  // Insert ke tabel inspection_services
+  const { error: insError } = await supabase
+    .from("inspection_services")
+    .insert({
+      service_id: serviceId,
+      detail_inspeksi: validatedFields.data.inspeksi,
+      keterangan_unit: formData.get("keterangan_unit"),
+      diagnosa_awal: validatedFields.data.diagnosa_awal,
+      estimasi_harga: parseInt(validatedFields.data.estimasi_harga),
+      estimasi_waktu: validatedFields.data.estimasi_waktu,
+    });
+
+  if (insError) return { status: "error", message: insError.message };
+
+  // Update Status di tabel utama (services)
+  const { error: servError } = await supabase
+    .from("services")
+    .update({ status: "antrian" })
+    .eq("id", serviceId);
+
+  if (servError) return { status: "error", message: servError.message };
+
+  revalidatePath("/dashboard/service");
+  return { status: "success", message: "Inspeksi berhasil disimpan!" };
 }

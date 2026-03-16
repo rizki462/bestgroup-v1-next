@@ -17,3 +17,23 @@ export type CreateTicketForm = {
     keluhan?: string[];
     status?: string[];
 };
+
+export type InspeksiFormState = {
+    status: string;
+    message?: string;
+    errors?: {
+        diagnosa_awal?: string[];
+        estimasi_harga?: string[];
+        estimasi_waktu?: string[];
+        _form?: string[];
+    };
+};
+
+export type InspectionDetail = {
+    service_id: string;
+    detail_inspeksi: Record<string, string>;
+    keterangan_unit: string;
+    diagnosa_awal: string;
+    estimasi_harga: number;
+    estimasi_waktu: string;
+};

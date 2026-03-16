@@ -7,12 +7,6 @@ export const createTicketServiceSchema = z.object({
   keluhan: z.string().min(5, "Jelaskan keluhan minimal 5 karakter"),
 });
 
-export const INSPEKSI_KEYS = [
-  "ram", "storage", "casing", "engsel", "lcd", "keyboard", 
-  "charger", "port", "baut", "speaker", "wifi", 
-  "kamera", "bluetooth", "microphone"
-] as const;
-
 export const inspeksiServiceSchema = z.object({
   inspeksi: z.record(z.string(), z.string()), 
   diagnosa_awal: z.string().min(5, "Diagnosa wajib diisi"),

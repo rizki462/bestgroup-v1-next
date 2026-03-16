@@ -1,55 +1,33 @@
 "use client";
 
-import {
-  DialogContent,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
+import { DialogContent, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import {
-  getServiceStyle,
-  SERVICE_STATUS_COLOR,
-  STATUS_UI_STYLE,
-} from "@/constants/service-constant";
+import { getServiceStyle } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import InformationUserTicket from "./information-user-ticket";
 import InspectionUserTicket from "./inspection-user-ticket";
 
-interface InformationProps {
-  data: any;
-  onStartInspeksi: () => void;
-  onClose: () => void;
-}
-
-export default function DialogDetailService({
-  data,
-  onClose,
-}: InformationProps) {
+export default function DialogDetailService({ data, onClose }: { data: any; onClose: () => void }) {
   const [isInspeksiMode, setIsInspeksiMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Helper styling
   const { uiStyle } = getServiceStyle(data.status);
 
+  // Jika sudah ada data inspeksi dari database
+  const isAlreadyInspected = !!data.inspection;
+
   if (!data) return null;
 
   return (
     <DialogContent className="sm:max-w-175 max-h-[95vh] overflow-y-auto p-0 border-none shadow-2xl">
       {/* HEADER */}
-      <div
-        className={cn(
-          "p-6 text-white transition-colors duration-500",
-          uiStyle.header,
-        )}
-      >
+      <div className={cn("p-6 text-white transition-colors duration-500", uiStyle.header)}>
         <div className="flex justify-between items-center">
           <div>
-            <p className="text-[10px] uppercase tracking-widest opacity-80 font-bold">
-              Detail Tiket
-            </p>
+            <p className="text-[10px] uppercase tracking-widest opacity-80 font-bold">Detail Tiket</p>
             <DialogTitle className="text-2xl font-bold font-mono tracking-tighter">
               {data.id_tiket}
             </DialogTitle>
@@ -73,6 +51,7 @@ export default function DialogDetailService({
             onBack={() => setIsInspeksiMode(false)}
             onClose={onClose}
             setIsLoadingParent={setIsLoading}
+            isDisabled={isAlreadyInspected}
           />
         )}
       </div>
@@ -90,21 +69,25 @@ export default function DialogDetailService({
           <Button
             variant="destructive"
             onClick={onClose}
-            className="text-[11px] font-bold hover:text-white hover:bg-red-700"
+            className="text-[11px] font-bold"
           >
             BATAL
           </Button>
 
-          <Button
-            form="form-inspeksi"
-            type="submit"
-            className={cn(
-              "bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold h-9 px-6 rounded-lg",
-              !isInspeksiMode,
-            )}
-          >
-            {isInspeksiMode ? "SIMPAN HASIL DIAGNOSA" : "SIMPAN PERUBAHAN"}
-          </Button>
+          {/* Sembunyikan tombol Simpan jika sudah pernah diinspeksi atau tidak dalam mode inspeksi */}
+          {(!isAlreadyInspected || isInspeksiMode) && (
+            <Button
+              form="form-inspeksi"
+              type="submit"
+              disabled={isAlreadyInspected || isLoading}
+              className={cn(
+                "bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold h-9 px-6 rounded-lg",
+                !isInspeksiMode && "hidden",
+              )}
+            >
+              {isAlreadyInspected ? "SUDAH DIINSPEKSI" : "SIMPAN HASIL DIAGNOSA"}
+            </Button>
+          )}
         </div>
       </DialogFooter>
     </DialogContent>

@@ -6,22 +6,21 @@ import { INSPEKSI_LIST } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Check, X } from "lucide-react";
 import { useState } from "react";
-import { updateInspeksiService } from "../actions";
+import { createInspectionService } from "../actions";
 import { toast } from "sonner";
 
-interface InspectionProps {
-  data: any;
-  onBack: () => void;
-  onClose: () => void;
-  setIsLoadingParent: (val: boolean) => void;
-}
+export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadingParent }: any) {
+  // Ambil data dari relation 'inspection' jika ada
+  const existingInspeksi = data.inspection;
+  const isDisabled = !!existingInspeksi;
 
-export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadingParent }: InspectionProps) {
   const [inspeksiResults, setInspeksiResults] = useState<Record<string, string>>(
+    existingInspeksi?.detail_inspeksi || 
     INSPEKSI_LIST.reduce((acc, item) => ({ ...acc, [item]: "Aman" }), {})
   );
 
   const handleToggleInspeksi = (item: string) => {
+    if (isDisabled) return;
     setInspeksiResults((prev) => ({
       ...prev,
       [item]: prev[item] === "Aman" ? "Bermasalah" : "Aman",
@@ -30,23 +29,15 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoadingParent(true);
-    
-    const formData = new FormData(e.currentTarget);
-    const payload = {
-      inspeksi: inspeksiResults,
-      keterangan_unit: formData.get("keterangan_unit"),
-      diagnosa_awal: formData.get("diagnosa_awal"),
-      estimasi_harga: formData.get("estimasi_harga"),
-      estimasi_waktu: formData.get("estimasi_waktu"),
-    };
+    if (isDisabled) return;
 
+    setIsLoadingParent(true);
+    const formData = new FormData(e.currentTarget);
+    
     try {
-      const result = await updateInspeksiService(data.id, payload);
+      const result = await createInspectionService(data.id, inspeksiResults, formData);
       if (result.status === "success") {
-        toast.success("Inspeksi Berhasil Disimpan", {
-          description: "Status tiket otomatis pindah ke Nunggu Konfirmasi",
-        });
+        toast.success("Berhasil", { description: "Inspeksi disimpan!" });
         onClose();
       } else {
         toast.error("Gagal simpan: " + result.message);
@@ -64,7 +55,9 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
         <Button variant="ghost" size="icon" type="button" onClick={onBack}>
           <ArrowLeft className="size-4" />
         </Button>
-        <h3 className="font-bold text-lg tracking-tight">Form Inspeksi Awal Unit</h3>
+        <h3 className="font-bold text-lg tracking-tight">
+          {isDisabled ? "Data Inspeksi Unit" : "Form Inspeksi Awal Unit"}
+        </h3>
       </div>
 
       {/* Grid Inspeksi */}
@@ -74,7 +67,8 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
             key={item}
             onClick={() => handleToggleInspeksi(item)}
             className={cn(
-              "flex flex-col gap-2 p-3 rounded-xl border transition-all cursor-pointer select-none",
+              "flex flex-col gap-2 p-3 rounded-xl border transition-all select-none",
+              !isDisabled && "cursor-pointer hover:shadow-md",
               inspeksiResults[item] === "Aman" ? "bg-emerald-50/50 border-emerald-100" : "bg-red-50 border-red-100",
             )}
           >
@@ -89,33 +83,46 @@ export default function InspectionUserTicket({ data, onBack, onClose, setIsLoadi
         ))}
       </div>
 
-      {/* Inputs */}
       <div className="space-y-4 pt-4 border-t">
         <div className="space-y-2">
           <Label className="text-xs font-bold uppercase">Keterangan Fisik Unit</Label>
           <textarea
             name="keterangan_unit"
-            placeholder="Misal: Baut tidak ada 2, Casing lecet pemakaian"
-            className="w-full min-h-20 p-4 text-sm bg-slate-50 border rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition-all"
+            defaultValue={existingInspeksi?.keterangan_unit}
+            disabled={isDisabled}
+            className="w-full min-h-20 p-4 text-sm bg-slate-50 border rounded-xl disabled:opacity-80"
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-xs font-bold uppercase">Hasil Diagnosa Awal & Solusi</Label>
+          <Label className="text-xs font-bold uppercase">Hasil Diagnosa & Solusi</Label>
           <textarea
             required
             name="diagnosa_awal"
-            placeholder="Contoh: SSD Bad Sector. Rekomendasi ganti SSD 256GB."
-            className="w-full min-h-20 p-4 text-sm bg-slate-50 border rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition-all"
+            defaultValue={existingInspeksi?.diagnosa_awal}
+            disabled={isDisabled}
+            className="w-full min-h-20 p-4 text-sm bg-slate-50 border rounded-xl disabled:opacity-80"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label className="text-xs font-bold uppercase">Estimasi Harga (Rp)</Label>
-            <input name="estimasi_harga" type="number" placeholder="650000" className="w-full p-3 border rounded-xl text-sm" />
+            <input 
+              name="estimasi_harga" 
+              type="number" 
+              defaultValue={existingInspeksi?.estimasi_harga}
+              disabled={isDisabled}
+              className="w-full p-3 border rounded-xl text-sm disabled:bg-slate-100" 
+            />
           </div>
           <div className="space-y-2">
             <Label className="text-xs font-bold uppercase">Estimasi Waktu</Label>
-            <input name="estimasi_waktu" type="text" placeholder="1-2 Hari" className="w-full p-3 border rounded-xl text-sm" />
+            <input 
+              name="estimasi_waktu" 
+              type="text" 
+              defaultValue={existingInspeksi?.estimasi_waktu}
+              disabled={isDisabled}
+              className="w-full p-3 border rounded-xl text-sm disabled:bg-slate-100" 
+            />
           </div>
         </div>
       </div>

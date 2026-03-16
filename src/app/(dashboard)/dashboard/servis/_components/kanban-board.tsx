@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
 import KanbanColumn from "./kanban-column";
 import { Loader2 } from "lucide-react";
-import { SERVICE_STATUS, ServiceStatus } from "@/constants/service-constant";
+import { SERVICE_STATUS } from "@/constants/service-constant";
 import { useEffect, useState, useMemo } from "react";
 import {
   DndContext,
@@ -24,7 +24,6 @@ export default function KanbanBoard() {
   const supabase = createClient();
   const queryClient = useQueryClient();
 
-  // State lokal untuk handle perpindahan kartu secara instan
   const [localServices, setLocalServices] = useState<any[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -39,9 +38,13 @@ export default function KanbanBoard() {
   } = useQuery({
     queryKey: ["services-kanban"],
     queryFn: async () => {
+      // Join ke inspection_services agar data inspeksi terbawa ke Card & Dialog
       const { data } = await supabase
         .from("services")
-        .select("*")
+        .select(`
+          *,
+          inspection:inspection_services (*)
+        `)
         .order("created_at", { ascending: false });
       return data || [];
     },
@@ -49,29 +52,31 @@ export default function KanbanBoard() {
 
   // --- LOGIKA REALTIME START ---
   useEffect(() => {
-    const channel = supabase
+    const channelServices = supabase
       .channel("realtime_services")
       .on(
         "postgres_changes",
-        {
-          event: "*", // Set INSERT, UPDATE, dan DELETE
-          schema: "public",
-          table: "services",
-        },
-        () => {
-          refetch();
-        },
+        { event: "*", schema: "public", table: "services" },
+        () => refetch()
       )
       .subscribe();
 
-    // Cleanup channel saat komponen tidak lagi digunakan (unmount)
+    // Channel untuk tabel inspeksi agar saat SA simpan diagnosa, UI langsung update
+    const channelInspection = supabase
+      .channel("realtime_inspection")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "inspection_services" },
+        () => refetch()
+      )
+      .subscribe();
+
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(channelServices);
+      supabase.removeChannel(channelInspection);
     };
   }, [supabase, refetch]);
-  // --- LOGIKA REALTIME END ---
 
-  // Sinkronkan data query ke state lokal
   useEffect(() => {
     if (services) setLocalServices(services);
   }, [services]);
@@ -89,16 +94,14 @@ export default function KanbanBoard() {
     const serviceId = active.id as string;
     const newStatus = over.id as string;
 
-    // UPDATE INSTAN DI UI
     setLocalServices((prev) =>
       prev.map((s) => (s.id === serviceId ? { ...s, status: newStatus } : s)),
     );
 
-    // UPDATE DI DATABASE (BACKGROUND)
     const result = await updateServiceStatus(serviceId, newStatus);
     if (result.status === "error") {
       toast.error("Gagal update status");
-      refetch(); // Kembalikan ke status semula jika gagal
+      refetch();
     } else {
       queryClient.invalidateQueries({ queryKey: ["services-kanban"] });
     }
@@ -140,7 +143,7 @@ export default function KanbanBoard() {
 
       <DragOverlay dropAnimation={{ duration: 100, easing: "ease" }}>
         {activeId && activeService ? (
-          <div className="w-full opacity-90  shadow-2xl">
+          <div className="w-full opacity-90 shadow-2xl">
             <KanbanCard data={activeService} isOverlay />
           </div>
         ) : null}
