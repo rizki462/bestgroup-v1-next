@@ -11,6 +11,8 @@ import {
   LucideIcon,
   Package,
   Handbag,
+  Menu,
+  ShieldUser,
 } from "lucide-react";
 
 export type SidebarMenuItemRegular = {
@@ -30,7 +32,28 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
     {
       title: "Main Menu",
       url: "/dashboard",
+      icon: Menu,
+    },
+    {
+      title: "Dashboard",
       icon: LayoutDashboard,
+      items: [
+        {
+          title: "Bestlaptop",
+          url: "#",
+          icon: Store,
+        },
+        {
+          title: "Bestservice",
+          url: "#",
+          icon: Store,
+        },
+        {
+          title: "CRM",
+          url: "#",
+          icon: ShieldUser,
+        },
+      ],
     },
     {
       title: "Gudang dan Logistik",

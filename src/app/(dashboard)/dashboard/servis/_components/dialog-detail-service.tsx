@@ -7,7 +7,7 @@ import { getServiceStyle } from "@/constants/service-constant";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import InformationUserTicket from "./information-user-ticket";
-import InspectionUserTicket from "./inspection-user-ticket";
+import InspectionUserTicket from "./form-inspection-user-ticket";
 
 interface DialogDetailProps {
   data: any;

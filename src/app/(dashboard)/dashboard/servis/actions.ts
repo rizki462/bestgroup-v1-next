@@ -97,9 +97,12 @@ export async function createInspectionService(
 
   const validatedFields = inspeksiServiceSchema.safeParse({
     inspeksi: inspeksiData,
+    teknisi_id: formData.get("teknisi_id"),
+    keterangan_unit: formData.get("keterangan_unit"),
     diagnosa_awal: formData.get("diagnosa_awal"),
     estimasi_harga: formData.get("estimasi_harga"),
     estimasi_waktu: formData.get("estimasi_waktu"),
+    pin_password: formData.get("pin_password"),
   });
 
   if (!validatedFields.success) {
@@ -115,10 +118,11 @@ export async function createInspectionService(
     .insert({
       service_id: serviceId,
       detail_inspeksi: validatedFields.data.inspeksi,
-      keterangan_unit: formData.get("keterangan_unit"),
+      keterangan_unit: validatedFields.data.keterangan_unit,
       diagnosa_awal: validatedFields.data.diagnosa_awal,
       estimasi_harga: parseInt(validatedFields.data.estimasi_harga),
       estimasi_waktu: validatedFields.data.estimasi_waktu,
+      pin_password: validatedFields.data.pin_password
     });
 
   if (insError) return { status: "error", message: insError.message };
@@ -128,7 +132,7 @@ export async function createInspectionService(
     .from("services")
     .update({ 
       status: "antrian",
-      teknisi_id: formData.get("teknisi_id")
+      teknisi_id: validatedFields.data.teknisi_id
     })
     .eq("id", serviceId);
 

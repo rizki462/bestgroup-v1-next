@@ -40,7 +40,7 @@ export default function MenuDashboardView() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center md:justify-items-start">
         {allAvailableMenus.map((menu) => (
           <Link key={menu.title} href={menu.url} className="group w-full flex justify-center md:justify-start">
-            <Card className="h-56 w-56 flex items-center justify-center border-2 transition-all duration-300 hover:border-teal-200 hover:shadow-lg hover:-translate-y-1 shadow-gray-200 hover:shadow-teal-100">
+            <Card className="h-56 w-56 flex items-center justify-center border-2 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 shadow-gray-200 hover:shadow-gray-200">
               <CardContent className="flex flex-col items-center justify-center text-center p-0">
                 <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-teal-50 text-teal-600 transition-colors group-hover:bg-teal-500 group-hover:text-white">
                   {menu.icon && <menu.icon size={32} />}

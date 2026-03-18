@@ -87,7 +87,7 @@ export default function AppSidebar() {
                   return (
                     <Collapsible
                       key={item.title}
-                      defaultOpen={isSubActive}
+                      // defaultOpen={isSubActive}
                       asChild
                       className="group/collapsible"
                     >
@@ -122,9 +122,6 @@ export default function AppSidebar() {
                                         : "hover:bg-sidebar-accent",
                                     )}
                                   >
-                                    {subItem.icon && (
-                                      <subItem.icon className="size-4 shrink-0 text-white" />
-                                    )}
                                     <span>{subItem.title}</span>
                                   </Link>
                                 </SidebarMenuSubButton>

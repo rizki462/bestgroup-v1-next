@@ -127,7 +127,7 @@ export default function KanbanBoard() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex gap-4 overflow-x-auto pb-4 h-[calc(100vh-180px)] no-scrollbar items-start">
+      <div className="flex gap-4 overflow-x-auto pb-4 h-[calc(100vh-180px)] items-start">
         {Object.entries(SERVICE_STATUS).map(([key, value]) => {
           const columnItems = localServices.filter((s) => s.status === key);
           return (

@@ -25,6 +25,8 @@ export type InspeksiFormState = {
         diagnosa_awal?: string[];
         estimasi_harga?: string[];
         estimasi_waktu?: string[];
+        keterangan_unit?: string[];
+        pin_password?: string[];
         _form?: string[];
     };
 };
@@ -36,4 +38,5 @@ export type InspectionDetail = {
     diagnosa_awal: string;
     estimasi_harga: number;
     estimasi_waktu: string;
+    pin_password: string | null;
 };
