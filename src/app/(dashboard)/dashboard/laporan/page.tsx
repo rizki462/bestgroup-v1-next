@@ -15,7 +15,7 @@ export const metadata = {
 export default function laporanPage() {
     return (
         <div>
-            <h1>Laporan</h1>
+            <h1>Garansi</h1>
         </div>
     );
 }

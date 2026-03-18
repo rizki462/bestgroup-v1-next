@@ -13,6 +13,10 @@ import {
   Handbag,
   Menu,
   ShieldUser,
+  ChartColumnBig,
+  Warehouse,
+  Wallet,
+  Shield,
 } from "lucide-react";
 
 export type SidebarMenuItemRegular = {
@@ -49,9 +53,9 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
           icon: Store,
         },
         {
-          title: "CRM",
+          title: "Analitik",
           url: "#",
-          icon: ShieldUser,
+          icon: ChartColumnBig,
         },
       ],
     },
@@ -83,12 +87,17 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
       ],
     },
     {
-      title: "Laporan",
+      title: "Garansi",
       url: "/dashboard/laporan",
-      icon: Clipboard,
+      icon: Shield,
     },
     {
-      title: "Manajemen",
+      title: "Keuangan",
+      url: "/dashboard/laporan",
+      icon: Wallet,
+    },
+    {
+      title: "HR & Payrol",
       icon: ShieldCheck,
       items: [
         {
@@ -99,7 +108,7 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
         {
           title: "Kelola Outlet",
           url: "/dashboard/outlet",
-          icon: Store,
+          icon: Warehouse,
         },
       ],
     },
