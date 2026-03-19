@@ -33,7 +33,7 @@ export default function MenuDashboardView() {
           Selamat Datang, {profile?.name}!
         </h1>
         <p className="text-muted-foreground mt-2">
-          Silakan pilih modul di bawah ini untuk mengelola operasional <b> PT. BestGroup</b>.
+          Silakan pilih modul di bawah ini untuk mengelola operasional <b> PT. Best Group Indonesia</b>.
         </p>
       </div>
 

@@ -12,10 +12,10 @@ export const metadata = {
     keywords: 'Best Group',
 };
 
-export default function laporanPage() {
+export default function garansiPage() {
     return (
         <div>
-            <h1>Laporan</h1>
+            <h1>Garansi</h1>
         </div>
     );
 }

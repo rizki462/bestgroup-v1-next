@@ -88,7 +88,7 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
     },
     {
       title: "Garansi",
-      url: "/dashboard/laporan",
+      url: "/dashboard/garansi",
       icon: Shield,
     },
     {
