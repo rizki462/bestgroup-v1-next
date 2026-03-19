@@ -176,7 +176,7 @@ export default function StockManagement() {
           <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
               <Input
-                className="w-full lg:w-62.5 pl-4"
+                className="w-full bg-white lg:w-62.5 pl-4"
                 placeholder="Cari nama atau deskripsi..."
                 onChange={(e) => handleChangeSearch(e.target.value)}
               />

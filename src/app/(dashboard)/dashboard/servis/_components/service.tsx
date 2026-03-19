@@ -12,10 +12,10 @@ export default function ServicePage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full p-6">
+    <div className="flex flex-col gap-6 w-full p-4">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Kanban Board Service</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Kanban Servis</h1>
           <p className="text-muted-foreground text-sm">
             Drag and drop tiket untuk melakukan perubahan status
           </p>

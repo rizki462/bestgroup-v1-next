@@ -115,6 +115,7 @@ export default function UserManagement() {
         <h1 className="text-2xl font-bold">User Management</h1>
         <div className="flex gap-2">
           <Input
+            className="w-full bg-white lg:w-62.5 pl-4"
             placeholder="Cari nama pengguna..."
             onChange={(e) => handleChangeSearch(e.target.value)}
           />

@@ -69,10 +69,9 @@ export default function OutletManagement() {
         </div>
         <div className="flex gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-64">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Cari nama outlet..."
-              className="pl-8"
+              className="w-full bg-white lg:w-62.5 pl-4"
               onChange={(e) => handleChangeSearch(e.target.value)}
             />
           </div>
