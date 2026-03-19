@@ -24,6 +24,9 @@ export default function InformationUserTicket({
 }: InformationProps) {
   if (!data) return null;
 
+  const statusUnit = data.status;
+  const showProgressStatuses = ["konfirmasi", "part", "pengerjaan", "selesai", "diambil", "batal"];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2 space-y-6">
@@ -53,7 +56,7 @@ export default function InformationUserTicket({
 
         {/* KELUHAN USER */}
         <div className="space-y-2">
-          <Label className="flex items-center gap-2 text-red-600 font-bold text-[11px] uppercase">
+          <Label className="flex items-center gap-2 text-red-600 font-bold text-[12px] uppercase">
             <AlertCircle className="size-4" /> Keluhan User
           </Label>
           <div className="p-4 bg-red-50/30 rounded-xl border border-red-100 text-sm italic text-slate-700 leading-relaxed">
@@ -65,8 +68,8 @@ export default function InformationUserTicket({
         {data.inspection && (
           <div className="space-y-4 pt-4 border-t border-dashed">
             <div className="space-y-2">
-              <Label className="flex items-center gap-2 text-teal-600 font-bold text-[11px] uppercase">
-                <Receipt className="size-4" /> Hasil Diagnosa & Solusi SA
+              <Label className="flex items-center gap-2 text-teal-600 font-bold text-[12px] uppercase">
+                Hasil Diagnosa & Solusi SA
               </Label>
               <div className="p-4 bg-teal-50/30 rounded-xl border border-teal-100">
                 <p className="text-sm font-bold text-slate-800 leading-relaxed">
@@ -195,6 +198,18 @@ export default function InformationUserTicket({
           <ClipboardCheck className="size-4" />
           {data.inspection ? "UNIT SUDAH DIINSPEKSI" : "MULAI INSPEKSI (SA)"}
         </Button>
+
+        {/* Tombol untuk melihat progress Teknisi yang hanya akan ada pada status konfirmasi, part, pengerjaan dan selesai */}
+        {showProgressStatuses.includes(statusUnit) && (
+          <Button
+            type="button"
+            onClick={onStartInspeksi}
+            className="w-full text-[11px] font-bold h-10 rounded-xl gap-2 bg-slate-900 hover:bg-slate-800 text-white"
+          >
+            <ClipboardCheck className="size-4" />
+            LIHAT PROGRESS
+          </Button>
+        )}
       </div>
     </div>
   );
