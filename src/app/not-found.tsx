@@ -24,7 +24,7 @@ export default async function NotFound() {
   // Jika ADA, tampilkan UI 404
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 text-center">
-      <div className="animate-in fade-in zoom-in duration-700">
+      <div className="inline-block">
         <Image
           src="/images/404.png"
           alt="404 Not Found"
@@ -36,7 +36,7 @@ export default async function NotFound() {
 
       <div className="mt-10 space-y-4">
         <div className="inline-block rounded-full bg-teal-50 px-4 py-1 text-[10px] font-black text-teal-600 uppercase tracking-[0.2em] border border-teal-100">
-          System Error: 404
+          Opps!
         </div>
 
         <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-4xl">
@@ -59,7 +59,7 @@ export default async function NotFound() {
       <div className="mt-16 flex items-center gap-2 opacity-30">
         <div className="h-px w-8 bg-slate-400"></div>
         <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          Best Group IT Support
+          Best Group IT
         </span>
         <div className="h-px w-8 bg-slate-400"></div>
       </div>

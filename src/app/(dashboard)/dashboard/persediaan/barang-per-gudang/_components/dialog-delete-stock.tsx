@@ -1,5 +1,4 @@
 import DialogDelete from '@/components/common/dialog-delete-stock';
-import { Profile } from '@/types/auth';
 import { startTransition, useActionState, useEffect } from 'react';
 import { deleteStock } from '../actions';
 import { INITIAL_STATE_ACTION } from '@/constants/general-contants';

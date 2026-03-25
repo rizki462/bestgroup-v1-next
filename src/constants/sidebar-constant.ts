@@ -66,22 +66,22 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
       items: [
         {
           title: "Gudang",
-          url: "#",
+          url: "/dashboard/persediaan/gudang",
           icon: Store,
         },
         {
           title: "Permintaan Barang",
-          url: "#",
+          url: "/dashboard/persediaan/permintaan-barang",
           icon: Clipboard,
         },
         {
           title: "Barang per Gudang",
-          url: "/dashboard/persediaan",
+          url: "/dashboard/persediaan/barang-per-gudang",
           icon: Archive,
         },
         {
           title: "Barang dan Jasa",
-          url: "#",
+          url: "/dashboard/persediaan/barang-dan-jasa",
           icon: Toolbox,
         },
       ],

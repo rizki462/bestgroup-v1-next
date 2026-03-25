@@ -169,7 +169,7 @@ export default function StockManagement() {
   return (
     <div className="w-full space-y-4">
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Stock Management</h1>
+        <h1 className="text-2xl font-bold">Barang per Gudang</h1>
         
         <div className="flex flex-col lg:flex-row gap-3 justify-between">
           {/* Group Filter & Search */}

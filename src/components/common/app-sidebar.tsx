@@ -148,7 +148,7 @@ export default function AppSidebar() {
                       className={cn(
                         "h-11 px-3 transition-all text-slate-600 duration-200 rounded-lg",
                         isActive
-                          ? "bg-teal-500 text-white hover:bg-teal-600 hover:text-white shadow-md shadow-teal-100"
+                          ? "bg-teal-500 text-white hover:bg-teal-600 hover:text-white"
                           : "hover:bg-teal-50"
                       )}
                     >
