@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   },
   devIndicators: false,
   images: {
-    domains: [
-      'https://hnjluneoewtutbdmwnon.storage.supabase.co',
-      'https://hnjluneoewtutbdmwnon.supabase.co',
-    ],
+    // domains: [
+    //   'https://hnjluneoewtutbdmwnon.storage.supabase.co',
+    //   'https://hnjluneoewtutbdmwnon.supabase.co',
+    // ],
     remotePatterns: [
       {
         protocol: 'https',

@@ -1,13 +1,13 @@
 import { constructMetadata } from "@/components/common/metadata";
 
 export const metadata = constructMetadata({
-    title: 'Garansi',
+    title: 'Keuangan',
 });
 
-export default function garansiPage() {
+export default function keuanganPage() {
     return (
         <div>
-            <h1>Garansi</h1>
+            <h1>Keuangan</h1>
         </div>
     );
 }

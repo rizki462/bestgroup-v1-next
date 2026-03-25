@@ -17,6 +17,7 @@ import {
   Warehouse,
   Wallet,
   Shield,
+  Toolbox,
 } from "lucide-react";
 
 export type SidebarMenuItemRegular = {
@@ -60,13 +61,28 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
       ],
     },
     {
-      title: "Gudang dan Logistik",
+      title: "Persediaan",
       icon: Package,
       items: [
         {
-          title: "Cek Stok",
+          title: "Gudang",
+          url: "#",
+          icon: Store,
+        },
+        {
+          title: "Permintaan Barang",
+          url: "#",
+          icon: Clipboard,
+        },
+        {
+          title: "Barang per Gudang",
           url: "/dashboard/persediaan",
           icon: Archive,
+        },
+        {
+          title: "Barang dan Jasa",
+          url: "#",
+          icon: Toolbox,
         },
       ],
     },
@@ -93,7 +109,7 @@ export const SIDEBAR_MENU_LIST: Record<string, SidebarMenuItem[]> = {
     },
     {
       title: "Keuangan",
-      url: "/dashboard/laporan",
+      url: "/dashboard/keuangan",
       icon: Wallet,
     },
     {

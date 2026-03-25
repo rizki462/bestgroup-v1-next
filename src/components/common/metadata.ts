@@ -17,11 +17,6 @@ export function constructMetadata({
     title: `${title}`,
     description,
     keywords: "Best Group",
-    viewport: {
-      width: 'device-width',
-      initialScale: 1,
-      maximumScale: 1,
-    },
     icons: {
       icon: image,
     },
@@ -31,5 +26,15 @@ export function constructMetadata({
         follow: false,
       },
     }),
+  };
+};
+
+export default function contructViewport() {
+  return {
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
   };
 }
