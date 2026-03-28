@@ -30,7 +30,7 @@ export default function FormService({
   type,
 }: FormServiceProps) {
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-106.25">
       <Form {...form}>
         <DialogHeader>
           <DialogTitle>{type} Tiket Servis</DialogTitle>
